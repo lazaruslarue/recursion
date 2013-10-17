@@ -7,43 +7,31 @@
 
 var getElementsByClassName = function (className) {
   var output = [];
-  console.log('starting context: ')
-  console.log(context)
-  var context = context || document.body
-  console.log(context)
-  var nodes = context.childNodes; // allows us to recurse 
-  var doit = function(value,node){
-  	console.log('context in doit')
-  	console.log(context)
-			if (value.childNodes.length > 1) { //recursive 
-				console.log('doin it')
-				console.log(value.childNodes)
-				_.each(value.childNodes,function(child){
-					context = value
-					console.log("context" + context)
-					doit(child)
-				})
-			} else if (value.classList == className){ // base case 
-				console.log('pushed!!!!!!!!!!!!!!!!!!')
-				output.push(value)
-			} 
-		}
+  var context = context || document.body;
+  var nodeCollection = context.childNodes; // allows us to recurse 
+  var doit = function(value){
+  	_.each(value.classList,function(myClass){
+  		if (myClass != className){ // recurse on Class
+  			return;
+  		} else if (myClass == className) { // base case
+  			output.push(value);
+  		}
+  	})
+		if (value.childNodes.length > 0) { // recurse on Nodes
+			_.each(value.childNodes,function(child){
+				context = child
+				doit(child)
+			})
+		} 
+	}
 
-	_.each(nodes,function(v,i){
+	_.each(nodeCollection,function(v,i){
 		doit(v,i)
 	});
 
-	console.log('output: ')
-	console.log(output)  
+	// console.log('output: ')
+	// console.log(output)  
   return output
 };
 // recursive case - nodes within nodes
 // base case - this node is key
-
-//document.body
-//element.childNodes
-//element.classList
-
-
-
-

@@ -5,7 +5,7 @@ var htmlStrings = [
   "<p><p class='targetClassName'><p class='targetClassName'></p></p></p>",
   "<p><p></p><p><p class='targetClassName'></p></p></p>",
   "<p><p class='targetClassName'></p><p class='targetClassName'></p></p>",
-  "<p><div class='somediv'><div class='innerdiv'><span class='targetClassName'>yay</span></div></div></p>"
+  "<p><div class='somediv'><div class='innerdiv'><span class='targetClassName'></span></div></div></p>"
 ];
 
 describe("getElementsByClassName", function(){
@@ -19,11 +19,10 @@ describe("getElementsByClassName", function(){
       var resultNodes = _.toArray(resultNodeList);
       var $expectedNodes = $(".targetClassName");
       var expectedNodes = _.toArray($expectedNodes);
-
+      // var test = document.getElementsByClassName("targetClassName")
+      // console.log(test)
       expect(resultNodes).toEqual(expectedNodes);
-
       $rootElement.remove();
     });
   });
-
 });
