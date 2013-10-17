@@ -7,6 +7,28 @@ var stringifyJSON = function (obj) {
   var	newResult = [];
   if (obj === null) {
   	result.push('null')
+  } else if (typeof obj == "string") {
+  	result.push('"'+  obj+ '"')
+  } else if (Array.isArray(obj)) {
+  	if (obj.length < 1 ){
+  		result.push('[]')
+  	} else {
+  		var out = []
+  		_.each(obj,function(val){
+					out.push( stringifyJSON(val) )
+  		})
+			result.push('['+out.join(',')+']')  		
+  	}
+  } else if (typeof	obj == "object") {
+  	var out = []
+  	
+  	_.each(obj,function(val,i){
+  		var outval = stringifyJSON(val) 
+  		var outprop = stringifyJSON(i)
+  		out.push('"'+ i + '":"' +val + '"')
+		})
+  	
+  	result.push('{'+out.join(',')+'}')
   } else {
 		result.push(obj)
 	}
