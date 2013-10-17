@@ -7,7 +7,9 @@ var stringifyJSON = function (obj) {
   var	newResult = [];
   if (obj === null) {
   	result.push('null')
-  } else if (typeof obj == "string") {
+  } 
+  
+  else if (typeof obj == "string") {
   	result.push('"'+  obj+ '"')
   } else if (Array.isArray(obj)) {
   	if (obj.length < 1 ){
@@ -20,22 +22,23 @@ var stringifyJSON = function (obj) {
 			result.push('['+out.join(',')+']')  		
   	}
   } else if (typeof	obj == "object") {
-  	var out = []
   	
-  	_.each(obj,function(val,i){
+    var out = []
 
-  		var outval = stringifyJSON(val) 
-  		var outkey = stringifyJSON(i)
-  		out.push( outkey + ':' + outval)
+  	_.each(obj,function(val,i){
+      // we should check if the object is a function or undefined. 
+      // if either are true, then we will return {} isntead of another function
+      if (typeof val == "function" || typeof val == "undefined" ) {
+        debugger
+        out = []
+      } else {
+        var outval = stringifyJSON(val) 
+        var outkey = stringifyJSON(i)
+        out.push( outkey + ':' + outval)
+      }
 		})
-  	
+      	
   	result.push('{'+out.join(',')+'}')
-  } else if (typeof obj == "function" || typeof obj == "function" ) {
-  	_.each(obj,function(val,i){
-  		var out = {}
-  		result.push(out)
-
-  	})
   } else {
 		result.push(obj)
 	}
