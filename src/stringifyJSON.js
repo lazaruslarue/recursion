@@ -23,12 +23,19 @@ var stringifyJSON = function (obj) {
   	var out = []
   	
   	_.each(obj,function(val,i){
+
   		var outval = stringifyJSON(val) 
-  		var outprop = stringifyJSON(i)
-  		out.push('"'+ i + '":"' +val + '"')
+  		var outkey = stringifyJSON(i)
+  		out.push( outkey + ':' + outval)
 		})
   	
   	result.push('{'+out.join(',')+'}')
+  } else if (typeof obj == "function" || typeof obj == "function" ) {
+  	_.each(obj,function(val,i){
+  		var out = {}
+  		result.push(out)
+
+  	})
   } else {
 		result.push(obj)
 	}
