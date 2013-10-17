@@ -29,7 +29,6 @@ var stringifyJSON = function (obj) {
       // we should check if the object is a function or undefined. 
       // if either are true, then we will return {} isntead of another function
       if (typeof val == "function" || typeof val == "undefined" ) {
-        debugger
         out = []
       } else {
         var outval = stringifyJSON(val) 
